@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ocorrencia.apps.OcorrenciaConfig',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DB_NAME', 'boletins'),
-        'USER': os.environ.get('DB_USER', 'drcc'),
-        'PASSWORD': os.environ.get('DB_PASS', 'drcc@bo123'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASS', 'root@123'),
         'HOST': 'localhost',
         'PORT': '5432',
            }

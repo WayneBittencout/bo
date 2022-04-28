@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{%block conteudo%}
+<head>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  
+</head>
+{% if alerta %}
+    {% for pix in alerta%}
+        <div class="alert alert-danger" role="alert">
+        <a> <strong>Pix - {{ pix.pix }}</strong> Encontrados nos Bos - {{ pix.bos|join:" , " }}</a>
+        </div>
+    {% endfor %}
+{% for cc in alertacc %}
+        <div class="alert alert-danger" role="alert">
+          <a> <strong>Conta Corrente - {{ cc.conta }}</strong> Encontrados nos Bos - {{ cc.bos|join:" , " }}</a>
+        </div>
+    {% endfor %}
+  
+{% for fone in alertafone %}
+        <div class="alert alert-danger" role="alert">
+          <a><strong>Telefone- {{ fone.telefone }}</strong> Encontrados nos Bos - {{ fone.bos|join:" , " }}</a>
+        </div>
+    {% endfor %}
+  
+{% endif %}
+{% endblock %}
+

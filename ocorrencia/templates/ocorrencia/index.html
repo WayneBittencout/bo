@@ -1,173 +1,118 @@
 {% extends 'base.html'%}
-{% block gsuperior %}
-<div class="row justify-content-center">
-    <div class="col-lg-4 col-md-12">
-        <div class="white-box analytics-info">
-            <h3 class="box-title">Total BOS</h3>
-            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                <li>
-                    <div id="sparklinedash"><canvas width="67" height="30"
-                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                    </div>
-                </li>
-                <li class="ms-auto"><span class="counter text-success">{{total.bos}}</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-12">
-        <div class="white-box analytics-info">
-            <h3 class="box-title">Total BOS Aquivados</h3>
-            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                <li>
-                    <div id="sparklinedash2"><canvas width="67" height="30"
-                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                    </div>
-                </li>
-                <li class="ms-auto"><span class="counter text-purple">{{total.arquivado}}</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-12">
-        <div class="white-box analytics-info">
-            <h3 class="box-title">Total BOS Outras Delegacias</h3>
-            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                <li>
-                    <div id="sparklinedash3"><canvas width="67" height="30"
-                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                    </div>
-                </li>
-                <li class="ms-auto"><span class="counter text-info">{{total.outrasdelegacias}}</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-{% endblock %}
-{%block conteudo%}
-<div class="container-fluid">
-    <div class="row">
-    <div class="col-lg-12">
-       <div id="containerpizza"></div>
-    </div>
-    </div>
-   </div>
-{% endblock %}
-
 {% block vergraficos %}
-<div class="container-fluid">
- <div class="row">
- <div class="col-lg-12">
+
+<figure class="highcharts-figure">
     <div id="container"></div>
- </div>
- </div>
-</div>
+    <p class="highcharts-description">
+        Use os botões para trocar de grafico, para melhor avalição.
+    </p>
+
+    <button id="plain">Colunas</button>
+    <button id="inverted">Colunas Invertidas</button>
+    <button id="polar">Circular</button>
+</figure>
 {%endblock%}
+{% block tabela %}
+ <!-- ============================================================== -->
+                <!-- RECENT SALES -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="d-md-flex mb-3">
+                                <h3 class="box-title mb-0">BO'S R$</h3>
+                                
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table no-wrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Numero</th>
+                                            <th class="border-top-0">Data de Registro</th>
+                                            <th class="border-top-0">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                     {% for valor in valores %}
+                                        <tr> 
+                                            <td>{{ forloop.counter }}</td>
+                                            <td class="txt-oflo">{{ valor.numero }}</td>
+                                            <td class="txt-oflo">{{ valor.data }}</td>
+                                            <td class="txt-oflo">{{ valor.valor_total }}</td>
+                                            
+                                        </tr>
+                                       
+                                     {%endfor%}
+                                     </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
 
 {%block graficos%}
-{{delegado|json_script:"dados-de"}}
-{{arquivado|json_script:"dados-ar"}}
-{{outrasdelegacias|json_script:"dados-ou"}}
-   <script>
-    var delegado = JSON.parse(document.getElementById('dados-de').textContent);
-    var arquivado = JSON.parse(document.getElementById('dados-ar').textContent);
-    var outras = JSON.parse(document.getElementById('dados-ou').textContent);
-     Highcharts.chart('container', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Relacao de Bos por Ano'
-    },
-    subtitle: {
-        text: 'DRCC'
-    },
-    xAxis: {
-        categories: [
-            'Jan',
-            'Fev',
-            'Mar',
-            'Abr',
-            'Mai',
-            'Jun',
-            'Jul',
-            'Ago',
-            'Set',
-            'Out',
-            'Nov',
-            'Dez'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'BOS (ano)'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} BO</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Delegado',
-        data: [delegado.janeiro, delegado.fevereiro,  delegado.marco, delegado.abril, delegado.maio, delegado.junho, delegado.julho, delegado.agosto, delegado.setembro, delegado.outubro, delegado.novembro, delegado.dezembro]
+{{grafico|json_script:"dados-bos"}}
 
-    }, {
-        name: 'Arquivado',
-        data: [arquivado.janeiro, arquivado.fevereiro, arquivado.marco, arquivado.abril, arquivado.maio, arquivado.junho, arquivado.julho, arquivado.agosto, arquivado.setembro, arquivado.outubro, arquivado.novembro, arquivado.dezembro]
-
-    }, {
-        name: 'Outras Delegacias',
-        data: [outras.janeiro, outras.fevereiro, outras.marco, outras.abril, outras.maio, outras.junho, outras.julho, outras.agosto, outras.setembro, outras.outubro, outras.novembro, outras.dezembro]
-
-    }, ]
-});
-</script>
-{{dados|json_script:"dados-bos"}}
 <script>
     var d = JSON.parse(document.getElementById('dados-bos').textContent);
-    Highcharts.chart('containerpizza', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
+    console.log(d);
+    const chart = Highcharts.chart('container', {
     title: {
-        text: 'Bos por Artigo Lei'
+        text: 'BOS por Valores'
     },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    subtitle: {
+        text: 'R$'
     },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: false
-            },
-            showInLegend: true
-        }
+    xAxis: {
+        categories: ['1 a 100', '101 a 600', '601 a 1.200', '1.201 a 3.000', '3.001 a 5.000', '5.001 a 10.000', '10.001 a 30.000', '30.001 a 50.000', '50.001 a 100.000', '100.001 a 200.000', '200.001 a 300.000', '300.001 a +']
     },
     series: [{
-        name: 'BO',
+        type: 'column',
         colorByPoint: true,
-        data: d
+        data: [d['100'],d['600'], d['1200'], d['3000'], d['5000'], d['10000'], d['30000'],d['50000'], d['100000'], d['200000'], d['300000'], d['+300000']],
+        showInLegend: false
     }]
 });
+
+document.getElementById('plain').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: false
+        },
+        subtitle: {
+            text: 'R$'
+        }
+    });
+});
+
+document.getElementById('inverted').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: true,
+            polar: false
+        },
+        subtitle: {
+            text: 'R$'
+        }
+    });
+});
+
+document.getElementById('polar').addEventListener('click', () => {
+    chart.update({
+        chart: {
+            inverted: false,
+            polar: true
+        },
+        subtitle: {
+            text: 'R$'
+        }
+    });
+});
+
 </script>
+{{dados|json_script:"dados-bos"}}
 {% endblock %}
