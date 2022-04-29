@@ -9,18 +9,18 @@
 {% if alerta %}
     {% for pix in alerta%}
         <div class="alert alert-danger" role="alert">
-        <a> <strong>Pix - {{ pix.pix }}</strong> Encontrados nos Bos - {{ pix.bos|join:" , " }}</a>
+        <a> <strong>Pix - {{ pix.pix }}</strong> Encontrado nos Bos - {{ pix.bos|join:" , " }}</a>
         </div>
     {% endfor %}
 {% for cc in alertacc %}
         <div class="alert alert-danger" role="alert">
-          <a> <strong>Conta Corrente - {{ cc.conta }}</strong> Encontrados nos Bos - {{ cc.bos|join:" , " }}</a>
+          <a> <strong>Conta Corrente - {{ cc.conta }}</strong> Encontrado nos Bos - {{ cc.bos|join:" , " }}</a>
         </div>
     {% endfor %}
   
 {% for fone in alertafone %}
         <div class="alert alert-danger" role="alert">
-          <a><strong>Telefone- {{ fone.telefone }}</strong> Encontrados nos Bos - {{ fone.bos|join:" , " }}</a>
+          <a><strong>Telefone- {{ fone.telefone }}</strong> Encontrado nos Bos - {{ fone.bos|join:" , " }}</a>
         </div>
     {% endfor %}
   
