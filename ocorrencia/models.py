@@ -6,6 +6,11 @@ from django.utils import timezone
 # Create your models here.
 #blank siguifica opcional, adiciona impot timezone pra data automatica,def str pra mudar o nome ficar certo na categoria
 
+class Natureza(models.Model):
+    descricao = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.descricao
 
 class Bo(models.Model):
     ESCOLHA =(
@@ -16,20 +21,13 @@ class Bo(models.Model):
         (u'5', u'Instaurados IP'),
         (u'6', u'Instaurados TCO'),
     )
-    NATUREZA =(
-        (u'1', u'ESTELIONATO'),
-        (u'2', u'TENTATIVA DE ESTELIONATO'),
-        (u'3', u'FURTO'),
-        (u'4', u'INVASAO DE DISPOSITIVO'),
-        (u'5', u'AMEAÇA'),
-        (u'6', u'OUTROS FATOS ATIPICOS'),
-    )
-    numero = models.CharField(max_length=255)
+    
+    numero = models.CharField(max_length=255, unique=True)
     data_fato = models.DateField()
     data_registro = models.DateField()
     local_registro = models.CharField(max_length=255)
     meios_empregados = models.CharField(max_length=255)
-    natureza_crime = models.CharField(max_length=1, choices=NATUREZA)
+    natureza_crime = models.ManyToManyField(Natureza)
     situacao_bo = models.CharField(max_length=1, choices=ESCOLHA)
     obs = models.TextField()
     data_insercao= models.DateField(default=date.today)
@@ -41,8 +39,8 @@ class Bo(models.Model):
        
 class Pessoa(models.Model):
     nome = models.CharField(max_length=255)
-    cpf_cnpj = models.CharField(max_length=255, blank=True, )
-    rg = models.CharField(max_length=255, blank=True)
+    cpf_cnpj = models.CharField(max_length=255, blank=True, unique=True )
+    rg = models.CharField(max_length=255, blank=True, unique=True)
     telefone = models.CharField(max_length=255, blank=True)
     
     def __str__(self):
@@ -54,7 +52,6 @@ class Conta_corrente(models.Model):
     agencia = models.CharField(max_length=255, blank=True)
     instituicao = models.CharField(max_length=255, blank=True)
    
-
     def __str__(self):
      return f'{self.numero}'
     
@@ -63,7 +60,6 @@ class Chave_pix(models.Model):
     pix = models.CharField(max_length=255, blank=True)
     instituicao = models.CharField(max_length=255, blank=True)
     
-
     def __str__(self):
      return f'{self.pix}'
 
