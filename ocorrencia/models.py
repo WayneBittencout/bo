@@ -27,7 +27,7 @@ class Bo(models.Model):
     data_registro = models.DateField()
     local_registro = models.CharField(max_length=255)
     meios_empregados = models.CharField(max_length=255)
-    natureza_crime = models.ManyToManyField(Natureza)
+    natureza_crime = models.ManyToManyField(Natureza, related_name='naturezas')
     situacao_bo = models.CharField(max_length=1, choices=ESCOLHA)
     obs = models.TextField()
     data_insercao= models.DateField(default=date.today)
