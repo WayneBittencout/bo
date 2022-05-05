@@ -29,7 +29,7 @@ class Bo(models.Model):
     meios_empregados = models.CharField(max_length=255)
     natureza_crime = models.ManyToManyField(Natureza, related_name='naturezas')
     situacao_bo = models.CharField(max_length=1, choices=ESCOLHA)
-    obs = models.TextField()
+    obs = models.TextField(null=True, blank=True)
     data_insercao= models.DateField(default=date.today)
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, blank=True,default=0)   
 
