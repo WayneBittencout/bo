@@ -57,7 +57,7 @@ class Conta_corrente(models.Model):
     
 
 class Chave_pix(models.Model):
-    pix = models.CharField(max_length=255, blank=True)
+    pix = models.CharField(max_length=255, blank=True, unique=True)
     instituicao = models.CharField(max_length=255, blank=True)
     
     def __str__(self):
