@@ -6,7 +6,7 @@ from pyexpat import model
 from django.shortcuts import render
 from django.http import HttpResponse
 from numpy import sort, where
-from .models import Bo, Chave_pix , Envolvido
+from .models import Bo, Chave_pix , Envolvido, Natureza
 from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
@@ -32,23 +32,12 @@ def gtotal():
 
 
 def gpizza():
-
-  valor = {}
-  valor['estelinato'] = Bo.objects.filter(natureza_crime = '1').count()
-  valor['tentativaestelinato'] = Bo.objects.filter(natureza_crime = '2').count()
-  valor['furto'] = Bo.objects.filter(natureza_crime = '3').count()
-  valor['invasaodedispositivo']= Bo.objects.filter(natureza_crime = '4').count()
-  valor['ameaca'] = Bo.objects.filter(natureza_crime = '5').count()
-  valor['outrosfatos'] = Bo.objects.filter(natureza_crime = '6').count()
-  dados = []
-  dados.append({'name': 'Estelionato', 'y': valor['estelinato']})
-  dados.append({'name': 'Tentativa de Estelionato', 'y': valor['tentativaestelinato']})
-  dados.append({'name': 'Furto', 'y': valor['furto']})
-  dados.append({'name': 'Invasao de Dispositivo', 'y': valor['invasaodedispositivo']})
-  dados.append({'name': 'Ameaca', 'y': valor['ameaca']})
-  dados.append({'name': 'Outros Fatos', 'y': valor['outrosfatos']})
-    
-  return dados
+  naturezas = Natureza.objects.all()
+  valores = []
+  for natureza in naturezas:
+    total = Bo.objects.filter(natureza_crime__id = natureza.id).count()
+    valores.append({'name': natureza.descricao, 'y': total})    
+  return valores
 
 
 def gbdelegado(ano):
