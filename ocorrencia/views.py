@@ -170,11 +170,14 @@ def cadastro(request):
             post_natureza_crime = form.cleaned_data['natureza_crime']
             post_situacao_bo = form.cleaned_data['situacao_bo']
             post_obs = form.cleaned_data['obs']
-
-            new_post = Bo(numero=post_numero, data_fato=post_data_fato, data_registro=post_data_registro, local_registro=post_local_registro, meios_empregados=post_meios_empregados, natureza_crime=post_natureza_crime, situacao_bo=post_situacao_bo, obs=post_obs)
+            print(post_natureza_crime)
+            new_post = Bo(numero=post_numero, data_fato=post_data_fato, data_registro=post_data_registro, local_registro=post_local_registro, meios_empregados=post_meios_empregados, situacao_bo=post_situacao_bo, obs=post_obs)
             new_post.save()
+            for natureza in post_natureza_crime:
+                natureza_obj = Natureza.objects.get(id=natureza.id) #get object by title i.e I declared unique for title under Category model
+                new_post.natureza_crime.add(natureza_obj)
             #messages.error(request, 'As senhas devem ser iguais')
-            return redirect('blog:post_list')
+            return redirect('index')
 
     elif(request.method == 'GET'):
         return render(request,'ocorrencia/cadastro.html', {'form': form})
