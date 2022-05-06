@@ -38,8 +38,10 @@
                                      {% for valor in valores %}
                                         <tr> 
                                             <td>{{ forloop.counter }}</td>
-                                            <td class="txt-oflo">{{ valor.numero }}</td>
-                                            <td class="txt-oflo">{{ valor.data }}</td>
+                                            <td class="txt-oflo">
+                                                <a href="{{ valor.get_absolute_url }}">{{ valor.numero }}</a>
+                                            </td>
+                                            <td class="txt-oflo">{{ valor.data_registro }}</td>
                                             <td class="txt-oflo">{{ valor.valor_total }}</td>
                                             
                                         </tr>
