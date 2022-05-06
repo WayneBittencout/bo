@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% load bootstrap %}:
+{%block conteudo%}
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="white-box">
+            <div class="d-md-flex mb-3">
+                <h3 class="box-title mb-0">Boletins de Ocorrência</h3>
+                
+            </div>
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">#</th>
+                            <th class="border-top-0">Numero</th>
+                            <th class="border-top-0">Data de Registro</th>
+                            <th class="border-top-0">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                     {% for bo in lista_bos %}
+                        <tr> 
+                            <td>{{ forloop.counter }}</td>
+                            <td class="txt-oflo">{{ bo.numero }}</td>
+                            <td class="txt-oflo">{{ bo.data_registro  }}</td>
+                            <td class="txt-oflo">{{ bo.valor_total }}</td>
+                            
+                        </tr>
+                       
+                     {%endfor%}
+                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
