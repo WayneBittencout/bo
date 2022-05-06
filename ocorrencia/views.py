@@ -11,7 +11,7 @@ from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from .forms import PostForm
+from .forms import CadastrarBoForm
 from datetime import date, timedelta
 
 numero_alerta = 1
@@ -155,11 +155,11 @@ def index(request):
   return render(request,'ocorrencia/index.html', {"valores":valores, "grafico":graficoindex()})
           
 def cadastro(request):
-    form = PostForm()
+    form = CadastrarBoForm()
 
     if(request.method == 'POST'):
 
-        form = PostForm(request.POST)
+        form = CadastrarBoForm(request.POST)
 
         if(form.is_valid()):
             post_numero = form.cleaned_data['numero']

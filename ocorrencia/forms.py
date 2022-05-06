@@ -1,7 +1,7 @@
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
 from .models import Bo, Natureza
 
-class PostForm(ModelForm):
+class CadastrarBoForm(ModelForm):
     natureza_crime = ModelMultipleChoiceField(queryset=Natureza.objects.all(), widget=CheckboxSelectMultiple)
 
     class Meta:
