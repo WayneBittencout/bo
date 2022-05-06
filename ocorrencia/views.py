@@ -213,7 +213,7 @@ def validadata(ndata):
   valida = current_date - timedelta(5)
   
   if datainsercao >= valida:
-    return TRUE
+    return True
 
 def alertas_fone():
 
