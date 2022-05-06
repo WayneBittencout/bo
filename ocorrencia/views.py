@@ -135,19 +135,8 @@ def graficoindex():
 
 def index(request):
   
-  valores = []
-
-  bos = Bo.objects.all().order_by("-valor_total")[:10]
-  for bo in bos:
-    dados={}
-    dados['numero'] = bo.numero
-    dados['data'] = bo.data_registro
-    dados['valor_total'] = bo.valor_total
-    valores.append(dados)
-     
-  #valores.sort(key=sort_by_valor_total, reverse=True)
-   
-  return render(request,'ocorrencia/index.html', {"valores":valores, "grafico":graficoindex()})
+  bos = Bo.objects.all().order_by("-valor_total")[:10]   
+  return render(request,'ocorrencia/index.html', {"valores":bos, "grafico":graficoindex()})
           
 def cadastro(request):
     form = CadastrarBoForm()
