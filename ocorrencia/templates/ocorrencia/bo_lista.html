@@ -23,7 +23,9 @@
                      {% for bo in lista_bos %}
                         <tr> 
                             <td>{{ forloop.counter }}</td>
-                            <td class="txt-oflo">{{ bo.numero }}</td>
+                            <td class="txt-oflo">
+                                <a href="{{ bo.get_absolute_url }}">{{ bo.numero }}</a>
+                            </td>
                             <td class="txt-oflo">{{ bo.data_registro  }}</td>
                             <td class="txt-oflo">{{ bo.valor_total }}</td>
                             
