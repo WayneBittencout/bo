@@ -2,6 +2,7 @@ from datetime import date
 from django.db import models
 from django.dispatch import receiver 
 from django.utils import timezone
+from django.urls import reverse_lazy
 
 # Create your models here.
 #blank siguifica opcional, adiciona impot timezone pra data automatica,def str pra mudar o nome ficar certo na categoria
@@ -35,6 +36,9 @@ class Bo(models.Model):
 
     def __str__(self):
         return self.numero
+
+    def get_absolute_url(self):
+        return reverse_lazy('editar-bo', args=[str(self.id)])
 
        
 class Pessoa(models.Model):
