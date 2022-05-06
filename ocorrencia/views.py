@@ -184,6 +184,13 @@ class BoAtualizar(generic.UpdateView):
   success_url = reverse_lazy('index')
   success_message = "Fonte Atualizada"
 
+class BoLista(generic.ListView):
+  model = Bo
+  context_object_name = 'lista_bos'
+  template_name = 'ocorrencia/bo_lista.html'
+  paginate_by = 10
+
+
 def graficos(request, ano=date.today().year):
    
   valor={}
