@@ -181,7 +181,7 @@ class BoAtualizar(generic.UpdateView):
   model = Bo
   form_class = CadastrarBoForm
   template_name = 'ocorrencia/bo_editar.html'
-  success_url = reverse_lazy('index')
+  success_url = reverse_lazy('lista-bo')
   success_message = "Fonte Atualizada"
 
 class BoLista(generic.ListView):
