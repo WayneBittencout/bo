@@ -1,18 +1,13 @@
 import datetime
 from inspect import isdatadescriptor
-from itertools import count
-from pickle import TRUE
-from pyexpat import model
 from django.shortcuts import render
-from django.http import HttpResponse
-from numpy import sort, where
 from .models import Bo, Chave_pix , Envolvido, Natureza
 from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from django.core.paginator import Paginator
 from .forms import CadastrarBoForm
 from datetime import date, timedelta
+from django.views import generic
+from django.urls import reverse_lazy
 
 numero_alerta = 1
 
@@ -181,6 +176,13 @@ def cadastro(request):
 
     elif(request.method == 'GET'):
         return render(request,'ocorrencia/cadastro.html', {'form': form})
+
+class BoAtualizar(generic.UpdateView):
+  model = Bo
+  form_class = CadastrarBoForm
+  template_name = 'ocorrencia/bo_editar.html'
+  success_url = reverse_lazy('index')
+  success_message = "Fonte Atualizada"
 
 def graficos(request, ano=date.today().year):
    
