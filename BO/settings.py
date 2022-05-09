@@ -122,6 +122,10 @@ DATE_FORMAT = (('d/m/Y'))
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 USE_L10N = False
 
+DECIMAL_SEPARATOR = ','
+
+USE_THOUSAND_SEPARATOR = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
