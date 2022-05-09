@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .models import Bo, Chave_pix , Envolvido, Natureza
 from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import CadastrarBoForm
+from .forms import CadastrarBoForm, EnvolvidoForm
 from datetime import date, timedelta
 from django.views import generic
 from django.urls import reverse_lazy
@@ -178,6 +178,13 @@ class BoLista(generic.ListView):
   context_object_name = 'lista_bos'
   template_name = 'ocorrencia/bo_lista.html'
   paginate_by = 10
+
+class EnvolvidoAtualizar(generic.UpdateView):
+  model = Envolvido
+  form_class = EnvolvidoForm
+  template_name = 'ocorrencia/envolvido_editar.html'
+  success_url = reverse_lazy('editar-envolvido')
+  success_message = "Fonte Atualizada"
 
 
 def graficos(request, ano=date.today().year):

@@ -8,6 +8,7 @@ urlpatterns = [
     path('lista/', views.BoLista.as_view(), name='lista-bo'),
     path('editar/<int:pk>', views.BoAtualizar.as_view(), name='editar-bo'),
     path('envolvido/', views.cadastro, name='envolvido'),
+    path('envolvido/<int:pk>', views.EnvolvidoAtualizar.as_view(), name='envolvido-editar'),
     path('alerta/', views.alertas, name='alerta'),
     path('graficos/', views.graficos, name='graficos'),
  ]
